@@ -1,46 +1,48 @@
 import java.io.*;
 class Quicksort {
-
-    static void swap(int[] arr, int i, int j)
+    int partition(int arr[], int low, int high)
+    {
+         int pivot = arr[low];
+        int st = low; 
+        int end= high; 
+        int k = high;
+        for (int i = high; i > low; i--) {
+            if (arr[i] > pivot)
+                swap(arr, i, k--);
+        }
+        swap(arr, low, k);
+        return k;
+    }
+    public static void swap(int[] arr, int i, int j)
     {
         int temp = arr[i];
         arr[i] = arr[j];
         arr[j] = temp;
     }
-static int partition(int[] arr, int low, int high)
+    void QuickSort(int arr[], int low, int high)
     {
-        int pivot = arr[0];
-        int i = (low - 1);
-
-        for (int j = low; j <= high - 1; j++) {
-            if (arr[j] < pivot) {
-                i++;
-                swap(arr, i, j);
-            }
-        }
-        swap(arr, i + 1, high);
-        return (i + 1);
-    }
-    static void quickSort(int[] arr, int low, int high)
-    {
+        
         if (low < high) {
-            int pi = partition(arr, low, high);
-            quickSort(arr, low, pi - 1);
-            quickSort(arr, pi + 1, high);
+            int idx = partition(arr, low, high);
+            QuickSort(arr, low, idx - 1);
+            QuickSort(arr, idx + 1, high);
         }
     }
-    public static void printArr(int[] arr)
+    void printArray(int arr[], int size)
     {
-        for (int i = 0; i < arr.length; i++) {
+        int i;
+        for (i = 0; i < size; i++)
             System.out.print(arr[i] + " ");
-        }
+        System.out.println();
     }
-    public static void main(String[] args)
+ public static void main(String args[])
     {
-        int[] arr = { 10, 7, 8, 9, 1, 5 };
-        int N = arr.length;
-        quickSort(arr, 0, N - 1);
-        System.out.println("Sorted array:");
-        printArr(arr);
+        int arr[] = { 7, 6, 10, 5, 9, 2, 1, 15, 7 };
+        int n = arr.length;
+
+        QuickSort ob = new QuickSort();
+        ob.QuickSort(arr, 0, n - 1);
+ System.out.println("Sorted array");
+ ob.printArray(arr, n);
     }
 }
